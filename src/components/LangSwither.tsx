@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Dispatch, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import { LanguageType } from 'types/types';
 
-interface ILanguageSwitcher {
-  lang: LanguageType;
-  setLang: Dispatch<SetStateAction<LanguageType>>;
-}
-
-export const LanguageSwitcher = ({ lang, setLang }: ILanguageSwitcher) => {
+export const LanguageSwitcher = () => {
+  const [lang, setLang] = useState<LanguageType>('en');
   const handleClickTheme = () => {
     setLang((state: LanguageType) => (state === 'en' ? 'ru' : 'en'));
   };

@@ -2,24 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import { ThemeType } from 'types/types';
-import { Dispatch, SetStateAction } from 'react';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { setTheme } from 'store/slices/themeSlice';
 
-interface IThemeSwitcher {
-  theme: ThemeType;
-  setTheme: Dispatch<SetStateAction<ThemeType>>;
-}
-
-export const ThemeSwitcher = ({ theme, setTheme }: IThemeSwitcher) => {
+export const ThemeSwitcher = () => {
+  const theme = useAppSelector((state) => state.theme);
+  const dispatch = useAppDispatch();
   const handleClickTheme = () => {
-    setTheme((state: ThemeType) => (state === 'dark' ? 'light' : 'dark'));
+    dispatch(setTheme());
   };
   return (
     <CustomBox>
       {theme === 'dark' ? (
-        <DarkModeIcon fontSize="small" onClick={handleClickTheme} />
+        <DarkModeIcon
+          fontSize="small"
+          sx={{ color: 'rgb(251, 191, 27)' }}
+          onClick={handleClickTheme}
+        />
       ) : (
-        <LightModeOutlinedIcon fontSize="small" onClick={handleClickTheme} />
+        <LightModeOutlinedIcon fontSize="small" sx={{ color: 'red' }} onClick={handleClickTheme} />
       )}
     </CustomBox>
   );
