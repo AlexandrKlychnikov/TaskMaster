@@ -12,8 +12,30 @@ code {
     monospace;
 }
 
-.wrapper {
+/* .wrapper {
   max-width: 1024px;
   width: 100%;
   margin: 0 auto 20px auto;
+} */
+
+.container {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(92, 92, 92);
+  flex-grow: 1;
+}
+
+footer {
+  height: 60px;
+  background-color: #282c34;
+}
+

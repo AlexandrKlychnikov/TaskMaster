@@ -7,10 +7,10 @@ export const Boards = () => {
     <Container
       fixed
       sx={{
-        height: '90vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        height: '100%',
       }}
     >
       <Typography variant="h2">Boards</Typography>

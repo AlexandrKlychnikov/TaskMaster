@@ -1,5 +1,10 @@
+import RegForm from 'components/RegForm';
 import React from 'react';
 
 export const Auth = () => {
-  return <div></div>;
+  return (
+    <>
+      <RegForm />
+    </>
+  );
 };
