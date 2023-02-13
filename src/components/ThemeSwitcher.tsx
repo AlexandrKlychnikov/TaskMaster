@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
@@ -8,7 +8,8 @@ import { setTheme } from 'store/slices/themeSlice';
 export const ThemeSwitcher = () => {
   const theme = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
-  const handleClickTheme = () => {
+  const handleClickTheme = (event: MouseEvent) => {
+    event.stopPropagation();
     dispatch(setTheme());
   };
   return (
