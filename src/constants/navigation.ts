@@ -17,6 +17,6 @@ export enum PAGE_PATH {
 
 export const PAGES = ['HOME', 'BOARDS', 'NEW BOARD'];
 
-export const AUTH_SETTINGS = ['Profile', 'Theme', 'Language', 'Logout'];
+export const AUTH_MENU_ITEMS = ['Profile', 'Theme', 'Language', 'Logout'];
 
-export const NOT_AUTH_SETTINGS = ['Log In', 'Sign Up', 'Theme', 'Language'];
+export const NOT_AUTH_MENU_ITEMS = ['Log In', 'Sign Up', 'Theme', 'Language'];

@@ -6,16 +6,19 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { AUTH_SETTINGS, NOT_AUTH_SETTINGS, PAGE_PATH } from 'constants/navigation';
+import { AUTH_MENU_ITEMS, NOT_AUTH_MENU_ITEMS, PAGE_PATH } from 'constants/navigation';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from 'store/slices/authSlice';
 import { subPage } from 'types/types';
 import { LOCAL_STORAGE_KEY } from 'constants/common';
-
+import { ThemeSwitcher } from './ThemeSwitcher';
+import { LanguageSwitcher } from './LangSwither';
+import { setTheme } from 'store/slices/themeSlice';
+import { useTranslation } from 'react-i18next';
 export interface IMobileUserMenuProps {
   handleOpenUserMenu: (event: MouseEvent<HTMLElement>) => void;
-  handleCloseUserMenu: () => void;
+  handleCloseUserMenu: (event?: MouseEvent<HTMLElement>) => void;
   anchorElUser: Element | ((element: Element) => Element);
 }
 
@@ -31,6 +34,7 @@ export const MobileUserMenu = ({
   const { theme, user } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const handleClick: IHandleClick = {
     'log in': () => {
@@ -40,7 +44,13 @@ export const MobileUserMenu = ({
       navigate(PAGE_PATH.AUTH, { state: subPage.signUp });
     },
     profile: () => {
-      alert('profile');
+      navigate(PAGE_PATH.PROFILE);
+    },
+    theme: () => {
+      dispatch(setTheme());
+    },
+    language: () => {
+      i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en');
     },
     logout: () => {
       localStorage.removeItem(LOCAL_STORAGE_KEY);
@@ -51,7 +61,7 @@ export const MobileUserMenu = ({
 
   return (
     <Box sx={{ flexGrow: 0, mr: 1, display: { xs: 'block', md: user ? 'block' : 'none' } }}>
-      <Tooltip title="Open settings">
+      <Tooltip title={t('header.tooltip')}>
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar alt="Name Surname" src="" />
         </IconButton>
@@ -78,14 +88,28 @@ export const MobileUserMenu = ({
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {(user ? AUTH_SETTINGS : NOT_AUTH_SETTINGS).map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center" onClick={handleClick[setting.toLocaleLowerCase()]}>
-              {setting}
-            </Typography>
+        {(user ? AUTH_MENU_ITEMS : NOT_AUTH_MENU_ITEMS).map((menuItem) => (
+          <MenuItem key={menuItem} onClick={handleCloseUserMenu}>
+            <Box onClick={handleClick[menuItem.toLocaleLowerCase()]}>
+              {menuItem === 'Theme' ? (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {t(`header.${menuItem}`)}
+                  <ThemeSwitcher />
+                </Box>
+              ) : menuItem === 'Language' ? (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {t('header.Lang')}
+                  <LanguageSwitcher />
+                </Box>
+              ) : (
+                t(`header.${menuItem}`)
+              )}
+            </Box>
           </MenuItem>
         ))}
       </Menu>
     </Box>
   );
 };
+
+// const MENU_ITEMS = ['Profile', <ThemeSwitcher />, <LanguageSwitcher />, 'Logout'];

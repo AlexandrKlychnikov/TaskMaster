@@ -22,12 +22,14 @@ import { signIn } from 'api/auth/signIn';
 import { signUp } from 'api/auth/signUp';
 import { parseBase64, setLocalStorage, UserDecoder } from 'utils/helpers';
 import { LOCAL_STORAGE_KEY } from 'constants/common';
+import { useTranslation } from 'react-i18next';
 
 const RegForm = () => {
   const location = useLocation();
   const formType: subPage = location.state;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const {
     handleSubmit,
@@ -84,20 +86,20 @@ const RegForm = () => {
           <Stack direction={'column'} gap={2}>
             {formType === subPage.signUp && (
               <TextField
-                label={'Name'}
+                label={t('windows.name')}
                 size={'small'}
                 helperText={errors.name ? errors.name.message : null}
                 {...register('name', validationParams('name'))}
               />
             )}
             <TextField
-              label={'Login'}
+              label={t('windows.login')}
               size={formType === subPage.logIn ? 'medium' : 'small'}
               helperText={errors.login ? errors.login.message : null}
               {...register('login', validationParams('login'))}
             />
             <TextField
-              label={'Password'}
+              label={t('windows.password')}
               size={formType === subPage.logIn ? 'medium' : 'small'}
               type={showPassword ? 'text' : 'password'}
               helperText={errors.password ? errors.password.message : null}
@@ -119,7 +121,7 @@ const RegForm = () => {
             />
             {formType === subPage.signUp && (
               <TextField
-                label={'Password Repeat'}
+                label={t('windows.passwordRepeat')}
                 type={showPassword ? 'text' : 'password'}
                 helperText={errors.password_repeat ? errors.password_repeat.message : null}
                 {...register('password_repeat', validationParams('password_repeat', watch))}
@@ -150,7 +152,7 @@ const RegForm = () => {
                 whiteSpace: 'nowrap',
               }}
             >
-              {formType === subPage.logIn ? 'Login In' : 'Sign Up'}
+              {formType === subPage.logIn ? t('header.logIn') : t('header.signUp')}
             </Button>
           </Stack>
         </form>

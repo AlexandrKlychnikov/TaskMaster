@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import { LanguageType } from 'types/types';
+import { useTranslation } from 'react-i18next';
 
 export const LanguageSwitcher = () => {
-  const [lang, setLang] = useState<LanguageType>('en');
-  const handleClickTheme = () => {
-    setLang((state: LanguageType) => (state === 'en' ? 'ru' : 'en'));
+  const { i18n } = useTranslation();
+  const handleClickTheme = (event: MouseEvent) => {
+    event.stopPropagation();
+    i18n.changeLanguage(i18n.language === 'en' ? 'ru' : 'en');
   };
   return (
     <CustomBox onClick={handleClickTheme}>
       <LanguageOutlinedIcon fontSize="small" />
-      <Box width={2}>{lang === 'en' ? 'en' : 'ru'}</Box>
+      <Box width={2}>{i18n.language}</Box>
     </CustomBox>
   );
 };

@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from './Header';
 import { useAppSelector } from 'store/hooks';
 import { PAGES, PAGE_PATH } from 'constants/navigation';
-
+import { useTranslation } from 'react-i18next';
 export interface IMobileNavMenuProps {
   handleOpenNavMenu: (event: MouseEvent<HTMLElement>) => void;
   handleCloseNavMenu: () => void;
@@ -20,6 +20,7 @@ export const MobileNavMenu = ({
   anchorElNav,
 }: IMobileNavMenuProps) => {
   const { theme, user } = useAppSelector((state) => state);
+  const { t } = useTranslation();
   return (
     <Box sx={{ flexGrow: 1, display: { xs: user ? 'flex' : 'none', md: 'none' } }}>
       <IconButton
@@ -56,7 +57,7 @@ export const MobileNavMenu = ({
       >
         {PAGES.map((page) => (
           <MenuItem key={page} onClick={handleCloseNavMenu}>
-            <Link to={PAGE_PATH[page as keyof typeof PAGE_PATH]}>{`${page.toLowerCase()}`}</Link>
+            <Link to={PAGE_PATH[page as keyof typeof PAGE_PATH]}>{t(`header.${page}`)}</Link>
           </MenuItem>
         ))}
       </Menu>

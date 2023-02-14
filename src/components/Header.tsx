@@ -28,8 +28,13 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleCloseUserMenu = (event?: MouseEvent<HTMLElement>) => {
+    console.log(event.currentTarget);
+    const menuItem = event.currentTarget.textContent;
+    const lang = menuItem.slice(0, 4);
+    if (menuItem !== 'Theme' && lang !== 'Lang' && lang !== 'Язык') {
+      setAnchorElUser(null);
+    }
   };
 
   const handleChangeWindowSize = () => {
