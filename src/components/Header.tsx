@@ -47,7 +47,6 @@ function ResponsiveAppBar() {
     return () => {
       window.removeEventListener('resize', handleChangeWindowSize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

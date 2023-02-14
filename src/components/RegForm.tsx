@@ -152,7 +152,7 @@ const RegForm = () => {
                 whiteSpace: 'nowrap',
               }}
             >
-              {formType === subPage.logIn ? t('header.logIn') : t('header.signUp')}
+              {formType === subPage.logIn ? t('header.Log In') : t('header.Sign Up')}
             </Button>
           </Stack>
         </form>
