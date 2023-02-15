@@ -7,7 +7,7 @@ const TRANSLATION_EN = {
     'Sign Up': 'Sign Up',
     Profile: 'Profile',
     Theme: 'Theme',
-    Lang: 'Lang',
+    Language: 'Lang',
     Logout: 'Logout',
     tooltip: 'Open user menu',
   },

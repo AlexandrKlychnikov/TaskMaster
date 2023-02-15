@@ -8,7 +8,7 @@ const TRANSLATION_RU = {
     Profile: 'Профиль',
     Theme: 'Тема',
     Logout: 'Выйти',
-    Lang: 'Язык',
+    Language: 'Язык',
     tooltip: 'Раскрыть меню',
   },
   windows: {

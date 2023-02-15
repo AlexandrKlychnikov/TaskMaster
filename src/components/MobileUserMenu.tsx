@@ -1,11 +1,12 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, ReactNode } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { AUTH_MENU_ITEMS, NOT_AUTH_MENU_ITEMS, PAGE_PATH } from 'constants/navigation';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +27,10 @@ interface IHandleClick {
   [index: string]: () => void;
 }
 
+interface IMenuItemIcon {
+  [index: string]: ReactNode;
+}
+
 export const MobileUserMenu = ({
   handleOpenUserMenu,
   handleCloseUserMenu,
@@ -35,6 +40,12 @@ export const MobileUserMenu = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const menuItemIcon: IMenuItemIcon = {
+    Profile: <PersonOutlineIcon />,
+    Theme: <ThemeSwitcher />,
+    Language: <LanguageSwitcher />,
+    Logout: <PowerSettingsNewIcon sx={{ color: 'red' }} />,
+  };
 
   const handleClick: IHandleClick = {
     'log in': () => {
@@ -90,20 +101,12 @@ export const MobileUserMenu = ({
       >
         {(user ? AUTH_MENU_ITEMS : NOT_AUTH_MENU_ITEMS).map((menuItem) => (
           <MenuItem key={menuItem} onClick={handleCloseUserMenu}>
-            <Box onClick={handleClick[menuItem.toLocaleLowerCase()]}>
-              {menuItem === 'Theme' ? (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {t(`header.${menuItem}`)}
-                  <ThemeSwitcher />
-                </Box>
-              ) : menuItem === 'Language' ? (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {t('header.Lang')}
-                  <LanguageSwitcher />
-                </Box>
-              ) : (
-                t(`header.${menuItem}`)
-              )}
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', color: menuItem === 'Logout' && 'red' }}
+              onClick={handleClick[menuItem.toLocaleLowerCase()]}
+            >
+              {t(`header.${menuItem}`)}
+              {menuItemIcon[menuItem]}
             </Box>
           </MenuItem>
         ))}
@@ -111,5 +114,3 @@ export const MobileUserMenu = ({
     </Box>
   );
 };
-
-// const MENU_ITEMS = ['Profile', <ThemeSwitcher />, <LanguageSwitcher />, 'Logout'];
