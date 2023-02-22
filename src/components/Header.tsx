@@ -11,6 +11,7 @@ import { MobileUserMenu } from './MobileUserMenu';
 import { useAppSelector } from 'store/hooks';
 import { DesktopUserMenu } from './DesktopUserMenu';
 import { DesktopNavMenu } from './DesktopNavMenu';
+import styles from 'styles/styles';
 
 function ResponsiveAppBar() {
   const { theme, user } = useAppSelector((state) => state);
@@ -28,18 +29,18 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = (event?: MouseEvent<HTMLElement>) => {
-    console.log(event.currentTarget);
-    const menuItem = event.currentTarget.textContent;
-    const lang = menuItem.slice(0, 4);
-    if (menuItem !== 'Theme' && lang !== 'Lang' && lang !== 'Язык') {
+  const handleCloseUserMenu = (event?: MouseEvent<HTMLElement> | string) => {
+    const menuItem =
+      event !== 'resize' ? (event as MouseEvent<HTMLElement>).currentTarget.textContent : null;
+    const lang = menuItem ? menuItem.slice(0, 4) : null;
+    if (event !== 'resize' || (menuItem !== 'Theme' && lang !== 'Lang' && lang !== 'Язык')) {
       setAnchorElUser(null);
     }
   };
 
   const handleChangeWindowSize = () => {
     handleCloseNavMenu();
-    handleCloseUserMenu();
+    handleCloseUserMenu('resize');
   };
 
   useEffect(() => {
@@ -47,12 +48,11 @@ function ResponsiveAppBar() {
     return () => {
       window.removeEventListener('resize', handleChangeWindowSize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
-    <AppBar sx={styles[theme as ThemeType]} position="static">
-      <Container sx={{ maxWidth: '1280px', padding: '0 0 0 6px' }}>
+    <AppBar sx={themeStyles[theme as ThemeType]} position="static">
+      <Container sx={styles.container}>
         <Toolbar disableGutters>
           <Logo size={'desktop'} />
           <MobileNavMenu
@@ -82,7 +82,7 @@ type IStyles = {
   };
 };
 
-export const styles: IStyles = {
+export const themeStyles: IStyles = {
   light: {
     backgroundColor: '#61dafb',
     color: '#282c34',
@@ -97,7 +97,7 @@ export const Link = styled(NavLink)`
   text-decoration: none;
   text-transform: capitalize;
   font-size: 1em;
-  color: ${styles.dark.color};
+  color: ${themeStyles.dark.color};
 `;
 
 export const buttonStyles = {

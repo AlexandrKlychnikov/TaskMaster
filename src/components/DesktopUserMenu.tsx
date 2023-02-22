@@ -16,12 +16,12 @@ export const DesktopUserMenu = () => {
       <Box sx={{ display: { xs: 'none', md: user ? 'none' : 'flex' } }}>
         <Button sx={buttonStyles}>
           <Link state={subPage.logIn} to={`/auth`}>
-            {t('header.logIn')}
+            {t('header.Log In')}
           </Link>
         </Button>
         <Button sx={buttonStyles}>
           <Link state={subPage.signUp} to={`/auth`}>
-            {t('header.signUp')}
+            {t('header.Sign Up')}
           </Link>
         </Button>
       </Box>
