@@ -16,6 +16,11 @@ const TRANSLATION_RU = {
     login: 'Логин',
     password: 'Пароль',
     passwordRepeat: 'Повторите пароль',
+    cancel: 'Отмена',
+    create: 'Создать',
+    newBoardDialogTitle: 'Создать доску',
+    boardTitle: 'Имя доски',
+    boardDescription: 'Описание',
   },
 
   main: {
