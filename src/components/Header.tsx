@@ -12,6 +12,7 @@ import { useAppSelector } from 'store/hooks';
 import { DesktopUserMenu } from './DesktopUserMenu';
 import { DesktopNavMenu } from './DesktopNavMenu';
 import styles from 'styles/styles';
+import NewBoardDialog from './NewBoardDialog';
 
 function ResponsiveAppBar() {
   const { theme, user } = useAppSelector((state) => state);
@@ -62,6 +63,7 @@ function ResponsiveAppBar() {
           />
           <Logo size={'mobile'} />
           <DesktopNavMenu handleCloseNavMenu={handleCloseNavMenu} />
+          <NewBoardDialog />
           <MobileUserMenu
             handleOpenUserMenu={handleOpenUserMenu}
             handleCloseUserMenu={handleCloseUserMenu}

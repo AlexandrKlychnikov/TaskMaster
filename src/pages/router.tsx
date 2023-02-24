@@ -9,11 +9,12 @@ import { NotFound } from './NotFound';
 import { Profile } from './Profile';
 import { useAppSelector } from 'store/hooks';
 import { PAGE_PATH } from 'constants/navigation';
+import { subPage } from 'types/types';
 
 const Router = () => {
   const { user } = useAppSelector((state) => state);
   const isAuth = (element: ReactNode) => {
-    return user ? element : <Navigate to={PAGE_PATH.AUTH} />;
+    return user ? element : <Navigate to={PAGE_PATH.AUTH} state={subPage.logIn} />;
   };
   return (
     <Routes>

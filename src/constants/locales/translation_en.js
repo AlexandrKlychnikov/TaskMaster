@@ -16,6 +16,11 @@ const TRANSLATION_EN = {
     login: 'Login',
     password: 'Password',
     passwordRepeat: 'Password Repeat',
+    cancel: 'Cancel',
+    create: 'Create',
+    newBoardDialogTitle: 'Create board',
+    boardTitle: 'Board Title',
+    boardDescription: 'Description',
   },
 
   main: {

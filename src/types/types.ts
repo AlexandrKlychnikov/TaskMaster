@@ -47,3 +47,18 @@ export interface IUserInfo {
 export interface ISignInResponse {
   token: string;
 }
+
+export interface INewBoardInput {
+  title: string;
+  description: string;
+  owner: string;
+  users: [];
+}
+
+export interface IBoardsOutput {
+  _id: string;
+  title: string;
+  description: string;
+  owner: string;
+  users: [string];
+}
