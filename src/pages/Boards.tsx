@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import { getAllBoards } from 'api/boards/getAllBoards';
-import { useAppSelector } from 'store/hooks';
-import { IBoardsOutput } from 'types/types';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { Board } from 'components/Board';
+import { setBoards } from 'store/slices/boardsSlice';
+import DeleteBoardDialog from 'components/DeleteBoardDialog';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const Boards = () => {
-  const { token } = useAppSelector((state) => state.user);
-  const [boards, setBoards] = useState<IBoardsOutput[]>([]);
+  const {
+    loading,
+    user: { token },
+    allBoards,
+  } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     async function dispatchBoards() {
       const boards = await getAllBoards(token);
-      setBoards([...boards]);
+      dispatch(setBoards([...boards]));
     }
     dispatchBoards();
-  }, [boards]);
+  }, [allBoards]);
   return (
     <Container
       fixed
@@ -26,6 +33,10 @@ export const Boards = () => {
         height: '100%',
       }}
     >
+      {loading && (
+        <CircularProgress size={100} sx={{ position: 'absolute', top: '50%', left: '50%' }} />
+      )}
+      <DeleteBoardDialog />
       <Stack
         direction="row"
         gap="10px"
@@ -34,8 +45,13 @@ export const Boards = () => {
         alignItems="center"
         sx={{ maxWidth: { xs: '300px', md: '610px', lg: '920px' } }}
       >
-        {boards.map((board, i) => (
-          <Board key={i} title={board.title} description={board.description} />
+        {allBoards.map((board) => (
+          <Board
+            _id={board._id}
+            key={board._id}
+            title={board.title}
+            description={board.description}
+          />
         ))}
       </Stack>
     </Container>

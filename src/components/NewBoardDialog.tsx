@@ -10,35 +10,47 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { setOpenNewBoardDialog } from 'store/slices/dialogSlice';
 import { CloseButton } from './CloseButton';
 import { createNewBoard } from 'api/boards/createNewBoard';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from 'constants/navigation';
 
 export default function NewBoardDialog() {
   const { t } = useTranslation();
-  const { newBoard: open, user } = useAppSelector((state) => state);
+  const {
+    board: {
+      newBoard: { isOpen: open },
+    },
+    user,
+  } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const title = React.useRef(null);
   const description = React.useRef(null);
+  const navigate = useNavigate();
 
   const handleClose = () => {
-    dispatch(setOpenNewBoardDialog(false));
+    dispatch(setOpenNewBoardDialog({ isOpen: false }));
   };
 
   const handleCreate = () => {
-    createNewBoard(
-      {
-        title: title.current.value,
-        description: description.current.value,
-        owner: user.id,
-        users: [],
-      },
-      user.token
-    );
-    dispatch(setOpenNewBoardDialog(false));
+    async function newBoard() {
+      const board = await createNewBoard(
+        {
+          title: title.current.value,
+          description: description.current.value,
+          owner: user.id,
+          users: [],
+        },
+        user.token
+      );
+      dispatch(setOpenNewBoardDialog({ isOpen: false }));
+      navigate(`${PAGE_PATH.BOARDS}/${board._id}`);
+    }
+    newBoard();
   };
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <CloseButton />
+        <CloseButton index="new" />
         <DialogTitle>{t('windows.newBoardDialogTitle')}</DialogTitle>
         <DialogContent>
           <TextField

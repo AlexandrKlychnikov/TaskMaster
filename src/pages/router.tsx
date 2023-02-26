@@ -24,7 +24,7 @@ const Router = () => {
         <Route path="/boards" element={isAuth(<Boards />)} />
         <Route path="/profile" element={isAuth(<Profile />)} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/bord_:index" element={isAuth(<BoardPage />)} />
+        <Route path="/boards/:boardId" element={isAuth(<BoardPage />)} />
       </Route>
     </Routes>
   );

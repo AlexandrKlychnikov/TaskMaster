@@ -18,9 +18,12 @@ const TRANSLATION_EN = {
     passwordRepeat: 'Password Repeat',
     cancel: 'Cancel',
     create: 'Create',
+    delete: 'Delete',
     newBoardDialogTitle: 'Create board',
     boardTitle: 'Board Title',
     boardDescription: 'Description',
+    warningTitle: 'Warning!',
+    warningDescription: 'Do you want to delete the board without the possibility of recovery?',
   },
 
   main: {

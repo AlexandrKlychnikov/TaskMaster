@@ -17,7 +17,7 @@ export const DesktopNavMenu = ({ handleCloseNavMenu }: IDesktopMenuProps) => {
   const { t } = useTranslation();
   const handleClick = (event: MouseEvent) => {
     if (event.currentTarget.id === 'NEW BOARD') {
-      dispatch(setOpenNewBoardDialog(true));
+      dispatch(setOpenNewBoardDialog({ isOpen: true }));
       handleCloseNavMenu();
     } else {
       handleCloseNavMenu();

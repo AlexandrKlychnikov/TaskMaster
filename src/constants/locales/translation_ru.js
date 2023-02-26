@@ -18,9 +18,12 @@ const TRANSLATION_RU = {
     passwordRepeat: 'Повторите пароль',
     cancel: 'Отмена',
     create: 'Создать',
+    delete: 'Удалить',
     newBoardDialogTitle: 'Создать доску',
     boardTitle: 'Имя доски',
     boardDescription: 'Описание',
+    warningTitle: 'Внимание!',
+    warningDescription: 'Вы хотите удалить доску без возможности восстановления?',
   },
 
   main: {

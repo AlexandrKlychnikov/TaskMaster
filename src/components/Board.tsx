@@ -8,8 +8,22 @@ import GroupIcon from '@mui/icons-material/Group';
 import Stack from '@mui/material/Stack';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import Tooltip from '@mui/material/Tooltip';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from 'constants/navigation';
+import { useAppDispatch } from 'store/hooks';
+import { setDeleteBoardDialog } from 'store/slices/dialogSlice';
 
-export const Board = ({ title, description }: Pick<IBoardsOutput, 'title' | 'description'>) => {
+export const Board = ({
+  title,
+  description,
+  _id,
+}: Pick<IBoardsOutput, 'title' | 'description' | '_id'>) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleDelete = () => {
+    dispatch(setDeleteBoardDialog({ isOpen: true, id: _id }));
+  };
   return (
     <Box
       sx={{
@@ -28,7 +42,10 @@ export const Board = ({ title, description }: Pick<IBoardsOutput, 'title' | 'des
           {title}
         </Typography>
         <Tooltip title="Open board">
-          <IconButton sx={{ alignSelf: 'start', width: '40px' }}>
+          <IconButton
+            sx={{ alignSelf: 'start', width: '40px' }}
+            onClick={() => navigate(`${PAGE_PATH.BOARDS}/${_id}`)}
+          >
             <OpenWithIcon />
           </IconButton>
         </Tooltip>
@@ -53,7 +70,7 @@ export const Board = ({ title, description }: Pick<IBoardsOutput, 'title' | 'des
           </IconButton>
         </Tooltip>
         <Tooltip title="Delete board">
-          <IconButton sx={{ width: '40px' }}>
+          <IconButton sx={{ width: '40px' }} onClick={handleDelete}>
             <DeleteForeverIcon sx={{ color: 'red' }} />
           </IconButton>
         </Tooltip>
