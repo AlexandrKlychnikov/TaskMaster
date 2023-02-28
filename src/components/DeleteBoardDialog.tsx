@@ -11,6 +11,7 @@ import { CloseButton } from './CloseButton';
 import Typography from '@mui/material/Typography';
 import { deleteBoard } from 'api/boards/deleteBoard';
 import { setLoading } from 'store/slices/loadSlice';
+import { setAlert, setSuccess } from 'store/slices/alertSlice';
 
 export default function DeleteBoardDialog() {
   const { t } = useTranslation();
@@ -28,8 +29,14 @@ export default function DeleteBoardDialog() {
 
   const handleDelete = async () => {
     dispatch(setDeleteBoardDialog({ isOpen: false, id: '' }));
+    dispatch(setAlert({ isProgress: true, action: 'delete' }));
     dispatch(setLoading(true));
-    await deleteBoard(token, id);
+    const board = await deleteBoard(token, id);
+    if (board) {
+      dispatch(setSuccess(true));
+    } else {
+      dispatch(setSuccess(false));
+    }
     dispatch(setLoading(false));
   };
 

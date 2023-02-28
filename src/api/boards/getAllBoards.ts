@@ -14,7 +14,8 @@ export const getAllBoards = async (token: string): Promise<IBoardsOutput[]> => {
     });
 
     if (!response.ok) {
-      throw new Error(`Request failed with status code ${response.status}`, {
+      const badToken = response.status === 403 ? ' - token is not valid' : null;
+      throw new Error(`Request failed with status code ${response.status}${badToken}`, {
         cause: response.status,
       });
     }

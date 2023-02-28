@@ -12,6 +12,8 @@ import { CloseButton } from './CloseButton';
 import { createNewBoard } from 'api/boards/createNewBoard';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from 'constants/navigation';
+import { setAlert, setSuccess } from 'store/slices/alertSlice';
+import { setLoading } from 'store/slices/loadSlice';
 
 export default function NewBoardDialog() {
   const { t } = useTranslation();
@@ -31,7 +33,10 @@ export default function NewBoardDialog() {
   };
 
   const handleCreate = () => {
+    dispatch(setAlert({ isProgress: true, action: 'create' }));
+    dispatch(setLoading(true));
     async function newBoard() {
+      dispatch(setOpenNewBoardDialog({ isOpen: false }));
       const board = await createNewBoard(
         {
           title: title.current.value,
@@ -41,8 +46,13 @@ export default function NewBoardDialog() {
         },
         user.token
       );
-      dispatch(setOpenNewBoardDialog({ isOpen: false }));
-      navigate(`${PAGE_PATH.BOARDS}/${board._id}`);
+      if (board) {
+        dispatch(setSuccess(true));
+        navigate(`${PAGE_PATH.BOARDS}/${board._id}`);
+      } else {
+        dispatch(setSuccess(false));
+      }
+      dispatch(setLoading(false));
     }
     newBoard();
   };

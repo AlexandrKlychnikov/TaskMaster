@@ -4,6 +4,7 @@ import authReducer from './slices/authSlice';
 import boardReducer from './slices/dialogSlice';
 import boardsReducer from './slices/boardsSlice';
 import loadReducer from './slices/loadSlice';
+import alertReducer from './slices/alertSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     board: boardReducer,
     allBoards: boardsReducer,
     loading: loadReducer,
+    alert: alertReducer,
   },
 });
 
