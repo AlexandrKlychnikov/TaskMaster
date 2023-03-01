@@ -12,8 +12,7 @@ import { CloseButton } from './CloseButton';
 import { createNewBoard } from 'api/boards/createNewBoard';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from 'constants/navigation';
-import { setAlert, setSuccess } from 'store/slices/alertSlice';
-import { setLoading } from 'store/slices/loadSlice';
+import { setAlert, setLoading, setSuccess } from 'store/slices/alertSlice';
 
 export default function NewBoardDialog() {
   const { t } = useTranslation();

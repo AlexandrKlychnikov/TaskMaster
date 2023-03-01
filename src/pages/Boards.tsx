@@ -6,21 +6,29 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { Board } from 'components/Board';
 import { setBoards } from 'store/slices/boardsSlice';
 import DeleteBoardDialog from 'components/DeleteBoardDialog';
+import CircularProgress from '@mui/material/CircularProgress';
+import { setLoading } from 'store/slices/loadSlice';
 
 export const Boards = () => {
   const {
     user: { token },
     allBoards,
+    loading,
+    alert: { isSuccess },
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
+  async function dispatchBoards() {
+    dispatch(setLoading(true));
+    const boards = await getAllBoards(token);
+    dispatch(setBoards([...boards]));
+    dispatch(setLoading(false));
+  }
+
   useEffect(() => {
-    async function dispatchBoards() {
-      const boards = await getAllBoards(token);
-      dispatch(setBoards([...boards]));
-    }
     dispatchBoards();
-  }, [allBoards]);
+  }, [isSuccess]);
+
   return (
     <Container
       fixed
@@ -31,9 +39,9 @@ export const Boards = () => {
         height: '100%',
       }}
     >
-      {/* {loading && (
+      {loading && (
         <CircularProgress size={100} sx={{ position: 'absolute', top: '50%', left: '50%' }} />
-      )} */}
+      )}
       <DeleteBoardDialog />
       <Stack
         direction="row"

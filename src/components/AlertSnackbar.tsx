@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { setAlert } from 'store/slices/alertSlice';
+import { setAlert, setSuccess } from 'store/slices/alertSlice';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
@@ -18,8 +18,7 @@ interface IStateOfAction {
 
 export default function AlertSnackbar() {
   const {
-    alert: { isProgress: open, isSuccess, action },
-    loading,
+    alert: { isProgress: open, isSuccess, action, isLoading: loading },
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
@@ -38,7 +37,14 @@ export default function AlertSnackbar() {
 
   const handleClose = () => {
     dispatch(setAlert({ isProgress: false }));
+    dispatch(setSuccess(false));
   };
+
+  // useEffect(() => {
+  //   return function () {
+  //     dispatch(setSuccess(false));
+  //   };
+  // });
 
   return (
     <div>
@@ -84,6 +90,7 @@ export default function AlertSnackbar() {
             onClose={handleClose}
             severity="error"
             sx={{
+              visibility: !open ? 'hidden' : null,
               width: '100%',
               marginTop: '50%',
               fontSize: '1em',

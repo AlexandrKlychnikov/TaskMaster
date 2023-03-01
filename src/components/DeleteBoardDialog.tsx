@@ -10,8 +10,7 @@ import { setDeleteBoardDialog } from 'store/slices/dialogSlice';
 import { CloseButton } from './CloseButton';
 import Typography from '@mui/material/Typography';
 import { deleteBoard } from 'api/boards/deleteBoard';
-import { setLoading } from 'store/slices/loadSlice';
-import { setAlert, setSuccess } from 'store/slices/alertSlice';
+import { setAlert, setLoading, setSuccess } from 'store/slices/alertSlice';
 
 export default function DeleteBoardDialog() {
   const { t } = useTranslation();
