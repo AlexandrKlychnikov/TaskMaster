@@ -1,8 +1,8 @@
 import { API_URL } from '../../constants/authentication';
 import { Endpoint } from '../../constants/navigation';
-import { IBoardsOutput } from 'types/types';
+import { IBoardOutput } from 'types/types';
 
-export async function deleteBoard(token: string, boardId: string): Promise<IBoardsOutput> {
+export async function deleteBoard(token: string, boardId: string): Promise<IBoardOutput> {
   try {
     const response = await fetch(`${API_URL}${Endpoint.BOARDS}/${boardId}`, {
       method: 'DELETE',

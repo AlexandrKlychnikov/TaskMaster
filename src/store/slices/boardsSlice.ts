@@ -1,13 +1,13 @@
-import { IBoardsOutput } from './../../types/types';
+import { IBoardOutput } from './../../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IBoardsOutput[] = [];
+const initialState: IBoardOutput[] = [];
 
 const slices = createSlice({
   name: 'Boards',
   initialState,
   reducers: {
-    setBoards: (state: IBoardsOutput[], action: PayloadAction<IBoardsOutput[]>) => {
+    setBoards: (state: IBoardOutput[], action: PayloadAction<IBoardOutput[]>) => {
       return action.payload;
     },
   },

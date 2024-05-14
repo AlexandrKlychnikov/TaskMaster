@@ -1,10 +1,10 @@
-import { IBoardsOutput } from 'types/types';
+import { IBoardOutput } from 'types/types';
 import { API_URL } from '../../constants/authentication';
 import { Endpoint } from '../../constants/navigation';
 
-export const getBoardById = async (id: string, token: string): Promise<IBoardsOutput[]> => {
+export const getBoardById = async (id: string, token: string): Promise<IBoardOutput> => {
   try {
-    const response = await fetch(`${API_URL}${Endpoint.BOARDS}`, {
+    const response = await fetch(`${API_URL}${Endpoint.BOARDS}/${id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -19,8 +19,8 @@ export const getBoardById = async (id: string, token: string): Promise<IBoardsOu
       });
     }
 
-    const boards: IBoardsOutput[] = await response.json();
-    return boards;
+    const board: IBoardOutput = await response.json();
+    return board;
   } catch (e: unknown) {
     const err = e as Error;
     throw err;

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { IBoardsOutput } from 'types/types';
+import { IBoardOutput } from 'types/types';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import GroupIcon from '@mui/icons-material/Group';
 import Stack from '@mui/material/Stack';
@@ -17,7 +17,7 @@ export const Board = ({
   title,
   description,
   _id,
-}: Pick<IBoardsOutput, 'title' | 'description' | '_id'>) => {
+}: Pick<IBoardOutput, 'title' | 'description' | '_id'>) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -38,7 +38,7 @@ export const Board = ({
       }}
     >
       <Stack direction="row" justifyContent="space-between">
-        <Typography variant="h6" fontWeight={700}>
+        <Typography variant="h6" fontWeight={700} sx={{ width: '85%', wordWrap: 'break-word' }}>
           {title}
         </Typography>
         <Tooltip title="Open board">

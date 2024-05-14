@@ -55,7 +55,7 @@ export interface INewBoardInput {
   users: [];
 }
 
-export interface IBoardsOutput {
+export interface IBoardOutput {
   _id: string;
   title: string;
   description: string;
