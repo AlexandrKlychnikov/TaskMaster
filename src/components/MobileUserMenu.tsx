@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 export interface IMobileUserMenuProps {
   handleOpenUserMenu: (event: MouseEvent<HTMLElement>) => void;
   handleCloseUserMenu: (event?: MouseEvent<HTMLElement>) => void;
-  anchorElUser: Element | ((element: Element) => Element);
+  anchorElUser: Element | (() => Element);
 }
 
 interface IHandleClick {

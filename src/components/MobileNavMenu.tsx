@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 export interface IMobileNavMenuProps {
   handleOpenNavMenu: (event: MouseEvent<HTMLElement>) => void;
   handleCloseNavMenu: () => void;
-  anchorElNav: Element | ((element: Element) => Element);
+  anchorElNav: Element | (() => Element);
 }
 
 export const MobileNavMenu = ({
